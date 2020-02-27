@@ -1,0 +1,21 @@
+#define servoPinA 12
+#define servoPinB 11
+#define servoPinC 10
+
+#define SERVO_A_X -110
+#define SERVO_A_Y 0
+#define SERVO_B_X 55
+#define SERVO_B_Y 95
+#define SERVO_C_X 55
+#define SERVO_C_Y -95
+#define SERVO_Z 265
+#define L_ARM_1 45
+#define L_ARM_2 218
+#define L_TOP 32
+#define L_BASE 100
+#define Z_TOOL_OFFSET 10
+#define MIN 85
+#define MAX 180
+#define resolution 1
+#define rad60 1.0471975
+#define radOmreken 0.0174532
