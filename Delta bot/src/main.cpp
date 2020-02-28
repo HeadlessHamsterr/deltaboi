@@ -107,9 +107,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){  //Controleren of de berekende afstand van de arm binnen de grenzen valt
     if(L_ARM_2 - distance < -resolution){ //De berekende afstand is groter dan de arm
-      /*gradenMax.a =  graden.a; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.a = (gradenMax.a + gradenMin.a) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.a--;
+      gradenMax.a =  graden.a; //Bovengrens van aantal graden aanpassen naar momentele positie
+      graden.a = (gradenMax.a + gradenMin.a) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.a--;
       Serial.print("Graden A = ");
       Serial.println(graden.a);
       elbowACalc(graden.a); //Opnieuw coördinaten van elleboog A berekenen
@@ -117,9 +117,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance A = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){  //De berekende afstand is kleiner dan de arm
-      /*gradenMin.a = graden.a; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.a = (gradenMax.a + gradenMin.a) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.a++;
+      gradenMin.a = graden.a; //Ondergrens van aantal graden aanpassen naar momentele positie
+      graden.a = (gradenMax.a + gradenMin.a) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.a++;
       elbowACalc(graden.a); //Opnieuw coördinaten van elleboog A berekenen
       Serial.print("Graden A = ");
       Serial.println(graden.a);
@@ -137,9 +137,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){
     if(L_ARM_2 - distance < -resolution){
-      /*gradenMin.b =  graden.b; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.b = (gradenMax.b + gradenMin.b) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.b--;
+      gradenMin.b =  graden.b; //Bovengrens van aantal graden aanpassen naar momentele positie
+      graden.b = (gradenMax.b + gradenMin.b) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.b--;
       Serial.print("Graden B = ");
       Serial.println(graden.b);
       elbowBCalc(graden.b);
@@ -147,9 +147,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance B = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){
-      /*gradenMax.b = graden.b; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.b = (gradenMax.b + gradenMin.b) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.b++;
+      gradenMax.b = graden.b; //Ondergrens van aantal graden aanpassen naar momentele positie
+      graden.b = (gradenMax.b + gradenMin.b) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.b++;
       elbowBCalc(graden.b);
       Serial.print("Graden B = ");
       Serial.println(graden.b);
@@ -167,9 +167,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){
     if(L_ARM_2 - distance < -resolution){
-      /*gradenMax.c =  graden.c; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.c = (gradenMax.c + gradenMin.c) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.c--;
+      gradenMax.c =  graden.c; //Bovengrens van aantal graden aanpassen naar momentele positie
+      graden.c = (gradenMax.c + gradenMin.c) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.c--;
       Serial.print("Graden C = ");
       Serial.println(graden.c);
       elbowCCalc(graden.c);
@@ -177,9 +177,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance C = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){
-      /*gradenMin.c = graden.c; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.c = (gradenMax.c + gradenMin.c) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde*/
-      graden.c++;
+      gradenMin.c = graden.c; //Ondergrens van aantal graden aanpassen naar momentele positie
+      graden.c = (gradenMax.c + gradenMin.c) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      //graden.c++;
       elbowCCalc(graden.c);
       Serial.print("Graden C = ");
       Serial.println(graden.c);
