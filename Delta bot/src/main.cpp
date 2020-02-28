@@ -3,7 +3,7 @@
 #include "mydef.h"
 
 //#define test
-
+//test
 void polsCalc(int x, int y, int z);
 void elbowACalc(int gradenA);
 void elbowBCalc(int gradenB);
