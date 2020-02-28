@@ -2,7 +2,7 @@
 #include <Servo.h>
 #include "mydef.h"
 
-#define test
+//#define test
 
 void polsCalc(int x, int y, int z);
 void elbowACalc(int gradenA);
