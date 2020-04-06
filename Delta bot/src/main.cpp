@@ -20,6 +20,7 @@ void solenoid(bool extend); //Functie voor het activeren en deactiveren van de s
 void startup(); //Functie die gedraaid wordt aan bij het opstarten waarbij de te pakken bakjes worden geselecteerd
 void selectPil(char bakje); //Functie voor het programmeren welke bakjes wanneer moeten worden gepakt
 void pakBakje(char bakje);  //Functie voor het pakken van het geselecteerde bakje
+void playSound(); //Functie om een geluidssignaal te sturen als de pillen klaar liggen
 
 //RTC Module object aanmaken
 RTC_DS1307 rtc;
@@ -551,6 +552,7 @@ void pakBakje(char bakje){
       delay(500); //Klauw de tijd geven om te openen
       move(bakjeAX, bakjeAY, (bakjeAZ+50)); //Omhoog bewegen om ervoor te zorgen dat niks omgegooid wordt
       move(homeX, homeY, homeZ);  //Terug naar het begin punt bewegen
+      playSound();
     break;
     case 'B': //Bakje B moet gepakt worden
       move(bakjeBX, bakjeBY, (bakjeBZ+50));
@@ -569,6 +571,7 @@ void pakBakje(char bakje){
       delay(500);
       move(bakjeBX, bakjeBY, (bakjeBZ+50));
       move(homeX, homeY, homeZ);
+      playSound();
     break;
     case 'C': //Bakje C moet gepakt worden
       move(bakjeCX, bakjeCY, (bakjeCZ+50));
@@ -587,6 +590,7 @@ void pakBakje(char bakje){
       delay(500);
       move(bakjeCX, bakjeCY, (bakjeCZ+50));
       move(homeX, homeY, homeZ);
+      playSound();
     break;
     case 'D': //Bakje D moet gepakt worden
       move(bakjeDX, bakjeDY, (bakjeDZ+50));
@@ -605,6 +609,14 @@ void pakBakje(char bakje){
       delay(500);
       move(bakjeDX, bakjeDY, (bakjeDZ+50));
       move(homeX, homeY, homeZ);
+      playSound();
     break;
   }
+}
+
+void playSound(){
+  /*
+    Deze functie is nog niet gemaakt omdat wij niet op tijd een manier hebben gevonden om dit op een goede manier te doen.
+    Ook zouden we pinnen te kort komen op de Arduino Uno, dus zou een Mega gebruikt moeten worden.
+  */
 }
