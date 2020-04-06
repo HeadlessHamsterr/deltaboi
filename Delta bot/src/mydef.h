@@ -34,28 +34,28 @@
 #define openJawPos 0
 
 #define bakjeAX 70
-#define bakjeAY 70
+#define bakjeAY -50
 #define bakjeAZ 70
 
 #define bakjeBX 70
-#define bakjeBY 70
+#define bakjeBY -40
 #define bakjeBZ 70
 
 #define bakjeCX 70
-#define bakjeCY 70
+#define bakjeCY -30
 #define bakjeCZ 70
 
 #define bakjeDX 70
-#define bakjeDY 70
+#define bakjeDY -20
 #define bakjeDZ 70
 
-#define uitgaveX 70
-#define uitgaveY 70
+#define uitgaveX -50
+#define uitgaveY 40
 #define uitgaveZ 70
 
-#define homeX 70
-#define homeY 70
-#define homeZ 70
+#define homeX 0
+#define homeY 20
+#define homeZ 120
 
 float polsAX = 0;
 float polsAY = 0;
