@@ -1,6 +1,15 @@
-#define servoPinA 12
-#define servoPinB 11
-#define servoPinC 10
+#define servoPinA 13
+#define servoPinB 12
+#define servoPinC 11
+#define servoPinJaw 10
+#define solPin 9
+#define limSwitch 8
+#define knopA A0
+#define knopB A1
+#define knopC A2
+#define knopD A3
+#define knopUp A4
+#define knopDown A5
 
 #define SERVO_A_X -110
 #define SERVO_A_Y 0
@@ -21,6 +30,32 @@
 #define rad60 1.0471975
 #define radOmreken 0.0174532
 #define testGraden 25
+#define addDeg 5
+#define openJawPos 0
+
+#define bakjeAX 70
+#define bakjeAY 70
+#define bakjeAZ 70
+
+#define bakjeBX 70
+#define bakjeBY 70
+#define bakjeBZ 70
+
+#define bakjeCX 70
+#define bakjeCY 70
+#define bakjeCZ 70
+
+#define bakjeDX 70
+#define bakjeDY 70
+#define bakjeDZ 70
+
+#define uitgaveX 70
+#define uitgaveY 70
+#define uitgaveZ 70
+
+#define homeX 70
+#define homeY 70
+#define homeZ 70
 
 float polsAX = 0;
 float polsAY = 0;
@@ -45,6 +80,7 @@ struct servos{
   int a;
   int b;
   int c;
+  int jaw;
 };
 
 servos graden;
