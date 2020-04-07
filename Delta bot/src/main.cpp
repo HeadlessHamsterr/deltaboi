@@ -5,7 +5,7 @@
 #include "RTClib.h"
 
 //#define test
-//#define demo  //Versie van het programma dat draait zonder lcd en knoppen aan te sluiten. Arm beweegt naar alle pillenbakjes en het uitgave-bakje.
+#define demo  //Versie van het programma dat draait zonder lcd, knoppen en RTC aan te sluiten. Arm beweegt naar alle pillenbakjes en het uitgave-bakje.
 
 void polsCalc(int x, int y, int z); //Functie voor het berekenen van de coördinaten van de polsen voor een gekozen coördinaat
 void elbowACalc(int gradenA); //Functie voor het berekenen van het coördinaat van elleboog A voor een bepaald aantal graden
@@ -27,10 +27,10 @@ RTC_DS1307 rtc;
 
 const int rs = 5, en = 4, d4 = 3, d5 = 2, d6 = 6, d7 = 7; //Variabelen moeten const ints zijn voor de LiquidCrystal library, defines werken niet
 
-#ifndef demo
-  //LCD object aanmaken
-  LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-#endif
+
+//LCD object aanmaken
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
 
 //Servo objecten aanmaken
 Servo servoA;
@@ -68,6 +68,7 @@ void setup(){
   pinMode(knopUp, INPUT);
   pinMode(knopDown, INPUT);
 
+#ifndef demo
   if(!rtc.begin()){ //Als de RTC niet beschikbaar is, kan het programma niet beginnen
     Serial.println("RTC niet gevonden");
     while(1);
@@ -79,13 +80,16 @@ void setup(){
   }
 
   rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); //De tijd van de RTC gelijk zetten met de momentele tijd
-
+#endif
   servoA.attach(servoPinA);
   servoB.attach(servoPinB);
   servoC.attach(servoPinC);
   servoJaw.attach(servoPinJaw);
 
   servoJaw.write(openJawPos); //Klauw openen
+
+  lcd.begin(16, 2); //LCD initializeren
+  lcd.clear();  //LCD voor de zekerheid leeg maken
 
   #ifdef test
     debug();
@@ -95,9 +99,26 @@ void setup(){
   #endif
 
   #ifndef demo
-    lcd.begin(16, 2); //LCD initializeren
-    lcd.clear();  //LCD voor de zekerheid leeg maken
     startup();  //Bakjes selecteren
+  #endif
+
+  #ifdef demo
+    Serial.println("Bakje A berekenen: ");
+    delay(1000);
+    move(bakjeAX, bakjeAY, bakjeAZ);  //Bewegen naar de locatie van bakje A
+    Serial.println("Bakje B berekenen: ");
+    delay(1000);
+    move(bakjeBX, bakjeBY, bakjeBZ);  //Bewegen naar de locatie van bakje B
+    Serial.println("Bakje C berekenen: ");
+    delay(1000);
+    move(bakjeCX, bakjeCY, bakjeCZ);  //Bewegen naar de locatie van bakje C
+    Serial.println("Bakje D berekenen: ");
+    delay(1000);
+    move(bakjeDX, bakjeDY, bakjeDZ);  //Bewegen naar de locatie van bakje D
+    Serial.println("Uitgave bakje berekenen: ");
+    delay(1000);
+    move(uitgaveX, uitgaveY, uitgaveZ);  //Bewegen naar de locatie van de pillen uitgave
+    Serial.println("Alle posities berekend!");
   #endif
 }
 
@@ -117,17 +138,6 @@ void loop(){
     if(actiefD && now.hour() == uurD && now.minute() == minuutD){ //Als bakje D geselecteerd is en de tijd goed is, bakje pakken
       pakBakje('D');
     }
-  #endif
-  #ifdef demo
-    move(bakjeAX, bakjeAY, bakjeAZ);  //Bewegen naar de locatie van bakje A
-    delay(500);
-    move(bakjeBX, bakjeBY, bakjeBZ);  //Bewegen naar de locatie van bakje B
-    delay(500);
-    move(bakjeCX, bakjeCY, bakjeCZ);  //Bewegen naar de locatie van bakje C
-    delay(500);
-    move(bakjeDX, bakjeDY, bakjeDZ);  //Bewegen naar de locatie van bakje D
-    delay(500);
-    move(uitagaveX, uitgaveY, uitgaveZ);  //Bewegen naar de locatie van de pillen uitgave
   #endif
 }
 
@@ -194,9 +204,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){  //Controleren of de berekende afstand van de arm binnen de grenzen valt
     if(L_ARM_2 - distance < -resolution){ //De berekende afstand is groter dan de arm
-      gradenMax.a =  graden.a; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.a = (gradenMax.a + gradenMin.a) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.a--;
+      //gradenMax.a =  graden.a; //Bovengrens van aantal graden aanpassen naar momentele positie
+      //graden.a = (gradenMax.a + gradenMin.a) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.a--;
       Serial.print("Graden A = ");
       Serial.println(graden.a);
       elbowACalc(graden.a); //Opnieuw coördinaten van elleboog A berekenen
@@ -204,9 +214,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance A = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){  //De berekende afstand is kleiner dan de arm
-      gradenMin.a = graden.a; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.a = (gradenMax.a + gradenMin.a) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.a++;
+      //gradenMin.a = graden.a; //Ondergrens van aantal graden aanpassen naar momentele positie
+      //graden.a = (gradenMax.a + gradenMin.a) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.a++;
       elbowACalc(graden.a); //Opnieuw coördinaten van elleboog A berekenen
       Serial.print("Graden A = ");
       Serial.println(graden.a);
@@ -226,9 +236,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){
     if(L_ARM_2 - distance < -resolution){
-      gradenMin.b =  graden.b; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.b = (gradenMax.b + gradenMin.b) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.b--;
+      //gradenMin.b =  graden.b; //Bovengrens van aantal graden aanpassen naar momentele positie
+      //graden.b = (gradenMax.b + gradenMin.b) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.b--;
       Serial.print("Graden B = ");
       Serial.println(graden.b);
       elbowBCalc(graden.b);
@@ -236,9 +246,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance B = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){
-      gradenMax.b = graden.b; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.b = (gradenMax.b + gradenMin.b) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.b++;
+      //gradenMax.b = graden.b; //Ondergrens van aantal graden aanpassen naar momentele positie
+      //graden.b = (gradenMax.b + gradenMin.b) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.b++;
       elbowBCalc(graden.b);
       Serial.print("Graden B = ");
       Serial.println(graden.b);
@@ -258,9 +268,9 @@ void degreeCalc(int x, int y, int z){
 
   while (L_ARM_2 - distance < -resolution || L_ARM_2 - distance > resolution){
     if(L_ARM_2 - distance < -resolution){
-      gradenMax.c =  graden.c; //Bovengrens van aantal graden aanpassen naar momentele positie
-      graden.c = (gradenMax.c + gradenMin.c) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.c--;
+      //gradenMax.c =  graden.c; //Bovengrens van aantal graden aanpassen naar momentele positie
+      //graden.c = (gradenMax.c + gradenMin.c) / 2; //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.c--;
       Serial.print("Graden C = ");
       Serial.println(graden.c);
       elbowCCalc(graden.c);
@@ -268,9 +278,9 @@ void degreeCalc(int x, int y, int z){
       Serial.print("Distance C = ");
       Serial.println(distance);
     }else if(L_ARM_2 - distance > resolution){
-      gradenMin.c = graden.c; //Ondergrens van aantal graden aanpassen naar momentele positie
-      graden.c = (gradenMax.c + gradenMin.c) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
-      //graden.c++;
+      //gradenMin.c = graden.c; //Ondergrens van aantal graden aanpassen naar momentele positie
+      //graden.c = (gradenMax.c + gradenMin.c) / 2;  //Waarde kiezen in het midden tussen de maximale en minimale waarde
+      graden.c++;
       elbowCCalc(graden.c);
       Serial.print("Graden C = ");
       Serial.println(graden.c);

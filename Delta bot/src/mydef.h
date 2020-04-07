@@ -33,25 +33,25 @@
 #define addDeg 5
 #define openJawPos 0
 
-#define bakjeAX 70
-#define bakjeAY -50
-#define bakjeAZ 70
+#define bakjeAX 50
+#define bakjeAY 0
+#define bakjeAZ -150
 
-#define bakjeBX 70
-#define bakjeBY -40
-#define bakjeBZ 70
+#define bakjeBX 50
+#define bakjeBY 20
+#define bakjeBZ -150
 
-#define bakjeCX 70
-#define bakjeCY -30
-#define bakjeCZ 70
+#define bakjeCX 50
+#define bakjeCY 40
+#define bakjeCZ -150
 
-#define bakjeDX 70
-#define bakjeDY -20
-#define bakjeDZ 70
+#define bakjeDX 50
+#define bakjeDY 60
+#define bakjeDZ -150
 
 #define uitgaveX -50
-#define uitgaveY 40
-#define uitgaveZ 70
+#define uitgaveY 30
+#define uitgaveZ -150
 
 #define homeX 0
 #define homeY 20
