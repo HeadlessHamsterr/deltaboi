@@ -5,7 +5,7 @@
 #include "RTClib.h"
 
 //#define test
-#define demo  //Versie van het programma dat draait zonder lcd, knoppen en RTC aan te sluiten. Arm beweegt naar alle pillenbakjes en het uitgave-bakje.
+//#define demo  //Versie van het programma dat draait zonder lcd, knoppen en RTC aan te sluiten. Arm beweegt naar alle pillenbakjes en het uitgave-bakje.
 
 void polsCalc(int x, int y, int z); //Functie voor het berekenen van de coördinaten van de polsen voor een gekozen coördinaat
 void elbowACalc(int gradenA); //Functie voor het berekenen van het coördinaat van elleboog A voor een bepaald aantal graden
@@ -311,12 +311,18 @@ void move(int x, int y, int z){
 
   if (graden.a >= MIN && graden.a <= MAX){  //Als de berekende waardes tussen de minimale en maximale waardes liggen, servo's bewegen
     servoA.write(graden.a);
+  }else{
+    Serial.println("Hoek A buiten bereik");
   }
   if (graden.b >= MIN && graden.b <= MAX){
     servoB.write(graden.b);
+  }else{
+    Serial.println("Hoek B buiten bereik");
   }
   if (graden.c >= MIN && graden.c <= MAX){
     servoC.write(graden.c);
+  }else{
+    Serial.println("Hoek C buiten bereik");
   }
   Serial.println("Moved");  //Bericht printen om te laten weten dat alle servo's zijn bewogen
 }
